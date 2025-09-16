@@ -1,0 +1,252 @@
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --font-size: 16px;
+  /* Neurodivergent-friendly color palette */
+  --background: #F0F8FF; /* Alice Blue */
+  --foreground: #2F4F4F; /* Dark slate gray for high contrast */
+  --card: #F0FFF0; /* Honeydew */
+  --card-foreground: #2F4F4F;
+  --popover: #F0F8FF;
+  --popover-foreground: #2F4F4F;
+  --primary: #5F9EA0; /* Cadet Blue */
+  --primary-foreground: #FFFFFF;
+  --secondary: #B0E0E6; /* Powder Blue */
+  --secondary-foreground: #2F4F4F;
+  --muted: #9FE2BF; /* Seafoam Green */
+  --muted-foreground: #2F4F4F;
+  --accent: #98FF98; /* Mint Green */
+  --accent-foreground: #2F4F4F;
+  --destructive: #CD5C5C; /* Indian Red - muted for accessibility */
+  --destructive-foreground: #FFFFFF;
+  --border: rgba(95, 158, 160, 0.2); /* Cadet blue with transparency */
+  --input: transparent;
+  --input-background: #FFFFFF;
+  --switch-background: #B0C4DE; /* Light Steel Blue */
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: #87CEEB; /* Sky Blue */
+  
+  /* Krypton custom colors */
+  --krypton-blue-light: #B0E0E6; /* Powder Blue */
+  --krypton-blue: #87CEEB; /* Sky Blue */
+  --krypton-blue-dark: #5F9EA0; /* Cadet Blue */
+  --krypton-green-light: #98FF98; /* Mint Green */
+  --krypton-green: #9FE2BF; /* Seafoam Green */
+  --krypton-green-dark: #8FBC8F; /* Dark Sea Green */
+  
+  --chart-1: #87CEEB;
+  --chart-2: #98FF98;
+  --chart-3: #B0E0E6;
+  --chart-4: #9FE2BF;
+  --chart-5: #B0C4DE;
+  --radius: 1rem; /* Larger radius for friendlier appearance */
+  --sidebar: #F0F8FF;
+  --sidebar-foreground: #2F4F4F;
+  --sidebar-primary: #5F9EA0;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #B0E0E6;
+  --sidebar-accent-foreground: #2F4F4F;
+  --sidebar-border: rgba(95, 158, 160, 0.2);
+  --sidebar-ring: #87CEEB;
+}
+
+.dark {
+  --background: #1a1a2e; /* Dark blue-gray */
+  --foreground: #F0F8FF;
+  --card: #16213e;
+  --card-foreground: #F0F8FF;
+  --popover: #16213e;
+  --popover-foreground: #F0F8FF;
+  --primary: #87CEEB;
+  --primary-foreground: #1a1a2e;
+  --secondary: #0f3460;
+  --secondary-foreground: #F0F8FF;
+  --muted: #0f3460;
+  --muted-foreground: #B0C4DE;
+  --accent: #0f3460;
+  --accent-foreground: #F0F8FF;
+  --destructive: #CD5C5C;
+  --destructive-foreground: #F0F8FF;
+  --border: rgba(135, 206, 235, 0.2);
+  --input: #0f3460;
+  --ring: #87CEEB;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --chart-1: #87CEEB;
+  --chart-2: #98FF98;
+  --chart-3: #B0E0E6;
+  --chart-4: #9FE2BF;
+  --chart-5: #B0C4DE;
+  --sidebar: #16213e;
+  --sidebar-foreground: #F0F8FF;
+  --sidebar-primary: #87CEEB;
+  --sidebar-primary-foreground: #1a1a2e;
+  --sidebar-accent: #0f3460;
+  --sidebar-accent-foreground: #F0F8FF;
+  --sidebar-border: rgba(135, 206, 235, 0.2);
+  --sidebar-ring: #87CEEB;
+}
+
+/* Custom neurodivergent-friendly utility classes */
+@layer utilities {
+  .glass-card {
+    background: rgba(240, 248, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(135, 206, 235, 0.2);
+  }
+  
+  .dark .glass-card {
+    background: rgba(22, 33, 62, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(135, 206, 235, 0.2);
+  }
+  
+  .gentle-transition {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .gentle-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(95, 158, 160, 0.15);
+  }
+  
+  .text-high-contrast {
+    color: #2F4F4F;
+    font-weight: 500;
+  }
+  
+  .dark .text-high-contrast {
+    color: #F0F8FF;
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  
+  /* Custom color utilities */
+  --color-krypton-blue-light: var(--krypton-blue-light);
+  --color-krypton-blue: var(--krypton-blue);
+  --color-krypton-blue-dark: var(--krypton-blue-dark);
+  --color-krypton-green-light: var(--krypton-green-light);
+  --color-krypton-green: var(--krypton-green);
+  --color-krypton-green-dark: var(--krypton-green-dark);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, "Atkinson Hyperlegible", "Comic Neue", "OpenDyslexic", sans-serif;
+  }
+  
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/**
+ * Base typography. This is not applied to elements which have an ancestor with a Tailwind text class.
+ */
+@layer base {
+  :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) {
+    h1 {
+      font-size: var(--text-3xl);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.4;
+      letter-spacing: -0.02em;
+    }
+
+    h2 {
+      font-size: var(--text-2xl);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.4;
+      letter-spacing: -0.01em;
+    }
+
+    h3 {
+      font-size: var(--text-xl);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.4;
+    }
+
+    h4 {
+      font-size: var(--text-lg);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.4;
+    }
+
+    p {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-normal);
+      line-height: 1.6;
+    }
+
+    label {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.5;
+    }
+
+    button {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-medium);
+      line-height: 1.4;
+    }
+
+    input, textarea {
+      font-size: var(--text-base);
+      font-weight: var(--font-weight-normal);
+      line-height: 1.5;
+    }
+  }
+}
+
+html {
+  font-size: var(--font-size);
+}
