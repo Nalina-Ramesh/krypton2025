@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Navigation } from './components/Navigation';
 import { HomePage } from './components/pages/HomePage';
 import { AnimationPage } from './components/pages/AnimationPage';
@@ -8,15 +9,13 @@ import { ChatbotPage } from './components/pages/ChatbotPage';
 import { AboutPage } from './components/pages/AboutPage';
 import { LoginPage } from './components/pages/LoginPage';
 import { DashboardPage } from './components/pages/DashboardPage';
+import { PhysicsLabPage } from './components/pages/PhysicsLabPage';
+import { ChemistryLabPage } from './components/pages/ChemistryLabPage';
+import { BiologyLabPage } from './components/pages/BiologyLabPage';
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState('home');
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [userType, setUserType] = useState<'student' | 'teacher' | null>(null);
-
-  const handleNavigate = (page: string) => {
-    setCurrentPage(page);
-  };
 
   const handleToggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
@@ -29,49 +28,35 @@ export default function App() {
 
   const handleUserTypeSelect = (type: 'student' | 'teacher') => {
     setUserType(type);
-    setCurrentPage('dashboard');
-  };
-
-  const renderPage = () => {
-    switch (currentPage) {
-      case 'home':
-        return <HomePage onNavigate={handleNavigate} />;
-      case 'animation':
-        return <AnimationPage />;
-      case 'labs':
-        return <LabsPage />;
-      case 'games':
-        return <GamesPage />;
-      case 'chatbot':
-        return <ChatbotPage />;
-      case 'about':
-        return <AboutPage />;
-      case 'login':
-        return <LoginPage onUserTypeSelect={handleUserTypeSelect} />;
-      case 'dashboard':
-        return userType ? <DashboardPage userType={userType} /> : <LoginPage onUserTypeSelect={handleUserTypeSelect} />;
-      default:
-        return <HomePage onNavigate={handleNavigate} />;
-    }
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      {/* Navigation - only show if not on login page */}
-      {currentPage !== 'login' && (
+    <Router>
+      <div className="min-h-screen bg-background text-foreground">
+        {/* Navigation - only show if not on login page */}
         <Navigation
-          currentPage={currentPage}
-          onNavigate={handleNavigate}
           isDarkMode={isDarkMode}
           onToggleDarkMode={handleToggleDarkMode}
           userType={userType}
         />
-      )}
-      
-      {/* Main Content */}
-      <main className={currentPage === 'login' ? '' : 'pt-0'}>
-        {renderPage()}
-      </main>
-    </div>
+
+        {/* Main Content */}
+        <main className="pt-0">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/animation" element={<AnimationPage />} />
+            <Route path="/labs" element={<LabsPage />} />
+            <Route path="/games" element={<GamesPage />} />
+            <Route path="/chatbot" element={<ChatbotPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/login" element={<LoginPage onUserTypeSelect={handleUserTypeSelect} />} />
+            <Route path="/dashboard" element={userType ? <DashboardPage userType={userType} /> : <LoginPage onUserTypeSelect={handleUserTypeSelect} />} />
+            <Route path="/physics" element={<PhysicsLabPage />} />
+            <Route path="/chemistry" element={<ChemistryLabPage />} />
+            <Route path="/biology" element={<BiologyLabPage />} />
+          </Routes>
+        </main>
+      </div>
+    </Router>
   );
 }

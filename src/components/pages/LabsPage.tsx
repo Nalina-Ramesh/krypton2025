@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '../ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Badge } from '../ui/badge';
@@ -67,7 +68,17 @@ export function LabsPage() {
           equipment: ['Reaction planner', 'Molecular editor', 'Yield calculator'],
           safety: 'Virtual environment - completely safe'
         }
-      ]
+      ],
+      newExperiment: {
+        id: 'new-chemistry-experiment',
+        title: 'New Experiment',
+        difficulty: 'Beginner',
+        duration: '10 min',
+        description: 'Add your experiment details here',
+        objectives: [],
+        equipment: [],
+        safety: 'Virtual environment - completely safe'
+      }
     },
     {
       id: 'physics',
@@ -107,7 +118,17 @@ export function LabsPage() {
           equipment: ['Quantum simulator', 'Particle detector', 'Wave function visualizer'],
           safety: 'Virtual environment - completely safe'
         }
-      ]
+      ],
+      newExperiment: {
+        id: 'new-physics-experiment',
+        title: 'New Experiment',
+        difficulty: 'Beginner',
+        duration: '10 min',
+        description: 'Add your experiment details here',
+        objectives: [],
+        equipment: [],
+        safety: 'Virtual environment - completely safe'
+      }
     },
     {
       id: 'biology',
@@ -147,9 +168,22 @@ export function LabsPage() {
           equipment: ['Population tracker', 'Environment simulator', 'Data analyzer'],
           safety: 'Virtual environment - completely safe'
         }
-      ]
+      ],
+      newExperiment: {
+        id: 'new-biology-experiment',
+        title: 'New Experiment',
+        difficulty: 'Beginner',
+        duration: '10 min',
+        description: 'Add your experiment details here',
+        objectives: [],
+        equipment: [],
+        safety: 'Virtual environment - completely safe'
+      }
     }
-  ];
+  ].map(subject => ({
+    ...subject,
+    experiments: [...subject.experiments, subject.newExperiment].filter(exp => exp != null)
+  }));
 
   const currentSubject = subjects.find(s => s.id === selectedSubject) || subjects[0];
   const currentLab = selectedLab ? 
@@ -205,31 +239,31 @@ export function LabsPage() {
           const Icon = subject.icon;
           const isSelected = selectedSubject === subject.id;
           return (
-            <Card 
-              key={subject.id}
-              className={`glass-card gentle-transition gentle-hover cursor-pointer border-2 overflow-hidden ${
-                isSelected 
-                  ? 'border-primary bg-primary/5 shadow-lg' 
-                  : 'border-transparent hover:border-primary/30'
-              }`}
-              onClick={() => setSelectedSubject(subject.id)}
-            >
-              <div className={`h-2 bg-gradient-to-r ${subject.color}`}></div>
-              <CardContent className="p-6 text-center">
-                <div className={`w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br ${subject.color} flex items-center justify-center shadow-lg`}>
-                  <Icon className="w-8 h-8 text-white" />
-                </div>
-                <h3 className="text-xl font-bold text-high-contrast mb-2">
-                  {subject.title}
-                </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                  {subject.description}
-                </p>
-                <Badge variant={isSelected ? "default" : "secondary"} className="px-3 py-1">
-                  {subject.experiments.length} Experiments
-                </Badge>
-              </CardContent>
-            </Card>
+            <Link to={`/${subject.id}`} key={subject.id}>
+              <Card
+                className={`glass-card gentle-transition gentle-hover cursor-pointer border-2 overflow-hidden ${
+                  isSelected
+                    ? 'border-primary bg-primary/5 shadow-lg'
+                    : 'border-transparent hover:border-primary/30'
+                }`}
+              >
+                <div className={`h-2 bg-gradient-to-r ${subject.color}`}></div>
+                <CardContent className="p-6 text-center">
+                  <div className={`w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br ${subject.color} flex items-center justify-center shadow-lg`}>
+                    <Icon className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-high-contrast mb-2">
+                    {subject.title}
+                  </h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+                    {subject.description}
+                  </p>
+                  <Badge variant={isSelected ? "default" : "secondary"} className="px-3 py-1">
+                    {subject.experiments.length} Experiments
+                  </Badge>
+                </CardContent>
+              </Card>
+            </Link>
           );
         })}
       </div>

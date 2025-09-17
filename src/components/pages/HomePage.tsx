@@ -6,22 +6,23 @@ import {
   Box, 
   FlaskConical, 
   Gamepad2, 
-  MessageCircle, 
-  Sparkles,
+  MessageCircle,
+  Users,
   Brain,
   Heart,
   Star,
-  ArrowRight
+  ArrowRight,
+  Sparkles
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface HomePageProps {
-  onNavigate: (page: string) => void;
 }
 
-export function HomePage({ onNavigate }: HomePageProps) {
+export function HomePage() {
   const modules = [
     {
-      id: 'animation',
+      id: '/animation',
       title: '3D Animation Studio',
       description: 'Create stunning 3D animations with AI-powered prompts',
       icon: Box,
@@ -29,7 +30,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
       bgAccent: 'bg-blue-50 dark:bg-blue-950/30'
     },
     {
-      id: 'labs',
+      id: '/labs',
       title: 'Virtual Science Labs',
       description: 'Conduct safe, interactive experiments in virtual environments',
       icon: FlaskConical,
@@ -37,7 +38,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
       bgAccent: 'bg-green-50 dark:bg-green-950/30'
     },
     {
-      id: 'games',
+      id: '/games',
       title: 'Learning Games',
       description: 'Master subjects through engaging, adaptive gameplay',
       icon: Gamepad2,
@@ -45,12 +46,20 @@ export function HomePage({ onNavigate }: HomePageProps) {
       bgAccent: 'bg-purple-50 dark:bg-purple-950/30'
     },
     {
-      id: 'chatbot',
+      id: '/chatbot',
       title: 'AI Learning Assistant',
       description: 'Get personalized help and guidance 24/7',
       icon: MessageCircle,
       color: 'from-teal-400 to-teal-600',
       bgAccent: 'bg-teal-50 dark:bg-teal-950/30'
+    },
+    {
+      id: '/about',
+      title: 'About Us',
+      description: 'Learn more about our mission and team',
+      icon: Users,
+      color: 'from-orange-400 to-orange-600',
+      bgAccent: 'bg-orange-50 dark:bg-orange-950/30'
     }
   ];
 
@@ -99,23 +108,25 @@ export function HomePage({ onNavigate }: HomePageProps) {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button 
-              size="lg"
-              className="gentle-transition gentle-hover px-8 py-6 text-lg"
-              onClick={() => onNavigate('login')}
-            >
-              Start Your Journey
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
+            <Link to="/login">
+              <Button 
+                size="lg"
+                className="gentle-transition gentle-hover px-8 py-6 text-lg"
+              >
+                Start Your Journey
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Button>
+            </Link>
             
-            <Button 
-              variant="outline"
-              size="lg"
-              className="gentle-transition gentle-hover px-8 py-6 text-lg"
-              onClick={() => onNavigate('about')}
-            >
-              Learn More
-            </Button>
+            <Link to="/about">
+              <Button 
+                variant="outline"
+                size="lg"
+                className="gentle-transition gentle-hover px-8 py-6 text-lg"
+              >
+                Learn More
+              </Button>
+            </Link>
           </div>
         </div>
         
@@ -140,32 +151,32 @@ export function HomePage({ onNavigate }: HomePageProps) {
             {modules.map((module) => {
               const Icon = module.icon;
               return (
-                <Card 
-                  key={module.id}
-                  className={`glass-card gentle-transition gentle-hover cursor-pointer border-2 border-transparent hover:border-primary/20 ${module.bgAccent}`}
-                  onClick={() => onNavigate(module.id)}
-                >
-                  <CardHeader className="pb-4">
-                    <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${module.color} flex items-center justify-center mb-4`}>
-                      <Icon className="w-8 h-8 text-white" />
-                    </div>
-                    <CardTitle className="text-xl font-bold text-high-contrast">
-                      {module.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <CardDescription className="text-base text-muted-foreground leading-relaxed">
-                      {module.description}
-                    </CardDescription>
-                    <Button 
-                      variant="ghost" 
-                      className="mt-4 p-0 h-auto text-primary hover:text-primary/80 gentle-transition"
-                    >
-                      Explore Module
-                      <ArrowRight className="ml-2 w-4 h-4" />
-                    </Button>
-                  </CardContent>
-                </Card>
+                <Link to={module.id} key={module.id}>
+                  <Card 
+                    className={`glass-card gentle-transition gentle-hover cursor-pointer border-2 border-transparent hover:border-primary/20 ${module.bgAccent}`}
+                  >
+                    <CardHeader className="pb-4">
+                      <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${module.color} flex items-center justify-center mb-4`}>
+                        <Icon className="w-8 h-8 text-white" />
+                      </div>
+                      <CardTitle className="text-xl font-bold text-high-contrast">
+                        {module.title}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <CardDescription className="text-base text-muted-foreground leading-relaxed">
+                        {module.description}
+                      </CardDescription>
+                      <Button 
+                        variant="ghost" 
+                        className="mt-4 p-0 h-auto text-primary hover:text-primary/80 gentle-transition"
+                      >
+                        Explore Module
+                        <ArrowRight className="ml-2 w-4 h-4" />
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </Link>
               );
             })}
           </div>
@@ -215,22 +226,24 @@ export function HomePage({ onNavigate }: HomePageProps) {
             Join thousands of students and educators who are already experiencing the future of inclusive education.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              size="lg"
-              className="gentle-transition gentle-hover px-8 py-6 text-lg"
-              onClick={() => onNavigate('login')}
-            >
-              Get Started Today
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
-            <Button 
-              variant="outline"
-              size="lg"
-              className="gentle-transition gentle-hover px-8 py-6 text-lg"
-              onClick={() => onNavigate('about')}
-            >
-              Watch Demo
-            </Button>
+            <Link to="/login">
+              <Button 
+                size="lg"
+                className="gentle-transition gentle-hover px-8 py-6 text-lg"
+              >
+                Get Started Today
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Button>
+            </Link>
+            <Link to="/about">
+              <Button 
+                variant="outline"
+                size="lg"
+                className="gentle-transition gentle-hover px-8 py-6 text-lg"
+              >
+                Watch Demo
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
